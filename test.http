@@ -1,0 +1,17 @@
+GET http://localhost:3030/getUsers
+
+####
+
+POST http://localhost:3030/createUsers
+Content-Type: application/json
+
+{
+    "firstName": "Pippo",
+    "lastName": "Paperino",
+    "email": "pippopaperino@gmail.com",
+    "dateOfBirth": "10 07 1980",
+    "avatar": "non lo so"
+}
+
+####
+GET http://localhost:3030/getUsers/65f3153c7dd405e4420f4623
