@@ -1,17 +1,64 @@
-GET http://localhost:3030/getUsers
+GET http://localhost:3030/getAuthors
 
 ####
 
-POST http://localhost:3030/createUsers
+POST http://localhost:3030/createAuthors
 Content-Type: application/json
 
 {
     "firstName": "Pippo",
     "lastName": "Paperino",
-    "email": "pippopaperino@gmail.com",
-    "dateOfBirth": "10 07 1980",
+    "email": "Pippo@gmail.com",
+    "dateOfBirth": "10 07 1990",
     "avatar": "non lo so"
 }
 
 ####
-GET http://localhost:3030/getUsers/65f3153c7dd405e4420f4623
+GET http://localhost:3030/getAuthors/65f5d91490b59c657b02e9c2
+
+####
+PATCH http://localhost:3030/updateAuthor/65f5d91490b59c657b02e9c2
+Content-Type: application/json
+
+{
+     "lastName": "Pluto"
+}
+
+####
+DELETE http://localhost:3030/deleteAuthors/65f5d8fa90b59c657b02e9c0
+
+####
+GET http://localhost:3030/blogPosts
+
+####
+POST http://localhost:3030/blogPosts
+Content-Type: application/json
+
+{
+    "category":"Nessuna categoria",
+    "title":"Title 3",
+    "cover":"cover 3",
+    "readTime":{
+        "value":130,
+        "unit":"seconds"
+    },
+    "author":{
+        "name":"Name author",
+        "avatar":"Nessuno"
+    },
+    "content":"Empty"
+}
+####
+GET http://localhost:3030/blogPosts/65f5d1b17c6654d5cc4bc660
+
+####
+
+PATCH http://localhost:3030/blogPosts/65f5d1b17c6654d5cc4bc660
+Content-Type: application/json
+
+{
+    "content":"Full"
+}
+
+####
+DELETE http://localhost:3030/blogPosts/65f5cd041e12a5814c3fb977
