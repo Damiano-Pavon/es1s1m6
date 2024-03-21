@@ -62,3 +62,28 @@ Content-Type: application/json
 
 ####
 DELETE http://localhost:3030/blogPosts/65f5cd041e12a5814c3fb977
+
+####
+GET http://localhost:3030/exercise
+
+####
+GET http://localhost:3030/exercise/isActive
+
+####
+GET http://localhost:3030/exercise/26
+
+
+####
+GET http://localhost:3030/exercise/26e30
+
+####
+GET http://localhost:3030/exercise/brownblue
+
+####
+GET http://localhost:3030/exercise/green
+
+####
+GET http://localhost:3030/exercise/nogreen-noblue
+
+####
+GET http://localhost:3030/exercise/company

@@ -8,11 +8,13 @@ const app = express();
 
 const authorsRoute = require("./routes/authors");
 const blogpostRoute = require("./routes/blogpost");
+const exerciseRoute = require("./routes/exercise");
 
 app.use(cors());
 app.use(express.json());
 app.use("/", authorsRoute);
 app.use("/blogPosts", blogpostRoute);
+app.use("/exercise", exerciseRoute);
 
 mongoose.connect(
   "mongodb+srv://damianopavon:Cll1MsljWkIYAhRm@epicodedb.6ymfeeo.mongodb.net/",
