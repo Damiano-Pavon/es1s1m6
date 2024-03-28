@@ -1,6 +1,175 @@
 const express = require("express");
 const router = express.Router();
 const blogModel = require("../models/blogpost");
+const CommentSchema = require("../models/comments");
+
+router.get("/:id/comments", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const blogpost = await blogModel.findById(id);
+
+    if (!blogpost) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: "Blogpost not found",
+      });
+    }
+    res.status(200).send({
+      statusCode: 200,
+      comments: blogpost.comments,
+    });
+  } catch (error) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "Internal server error",
+    });
+  }
+});
+
+router.get("/:id/comments/:commentId", async (req, res) => {
+  const { id, commentId } = req.params;
+  try {
+    const blogpost = await blogModel.findById(id);
+
+    if (!blogpost) {
+      return res.status(404).json({
+        statusCode: 404,
+        message: "Blogpost not found",
+      });
+    }
+    const comment = blogpost.comments.find(
+      (comment) => comment._id.toString() === commentId
+    );
+
+    if (!comment) {
+      return res.status(404).json({
+        statusCode: 404,
+        message: "Comment not found",
+      });
+    }
+    res.status(200).send({
+      statusCode: 200,
+      comment,
+    });
+  } catch (error) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "Internal server error",
+    });
+  }
+});
+
+router.post("/:id/comments", async (req, res) => {
+  const { id } = req.params;
+  const { text } = req.body;
+
+  try {
+    const blogpost = await blogModel.findById(id);
+
+    if (!blogpost) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: "Blogpost not found",
+      });
+    }
+    const newComment = {
+      text,
+    };
+
+    blogpost.comments.push(newComment);
+    await blogpost.save();
+
+    res.status(201).send({
+      statusCode: 201,
+      message: "Comment added successfully",
+      comment: newComment,
+    });
+  } catch (error) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "Internal server error",
+    });
+  }
+});
+
+router.patch("/:id/comments/:commentId", async (req, res) => {
+  const { id, commentId } = req.params;
+  const { text } = req.body;
+
+  try {
+    const blogpost = await blogModel.findById(id);
+
+    if (!blogpost) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: "Blogpost not found",
+      });
+    }
+
+    const comment = blogpost.comments.find(
+      (comment) => comment._id.toString() === commentId
+    );
+
+    if (!comment) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: "Comment not found",
+      });
+    }
+    comment.text = text;
+    await blogpost.save();
+    res.status(200).send({
+      statusCode: 200,
+      message: "Comment updated successfully",
+      comment,
+    });
+  } catch (error) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "Internal server error",
+    });
+  }
+});
+
+router.delete("/:id/comments/:commentId", async (req, res) => {
+  const { id, commentId } = req.params;
+
+  try {
+    const blogpost = await blogModel.findById(id);
+
+    if (!blogpost) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: "Blogpost not found",
+      });
+    }
+
+    const commentIndex = blogpost.comments.findIndex(
+      (comment) => comment._id.toString() === commentId
+    );
+
+    if (commentIndex === -1) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: "Comment not found",
+      });
+    }
+
+    blogpost.comments.splice(commentIndex, 1);
+    await blogpost.save();
+
+    res.status(200).send({
+      statusCode: 200,
+      message: "Comment deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "Internal server error",
+    });
+  }
+});
 
 router.get("/", async (req, resp) => {
   try {
@@ -22,6 +191,7 @@ router.post("/", async (req, resp) => {
     readTime: req.body.readTime,
     author: req.body.author,
     content: req.body.content,
+    comments: req.body.comments,
   });
   try {
     const BlogpostToSave = await newBlogpost.save();

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const CommentSchema = require("./comments");
 
 const BlogSchema = new mongoose.Schema(
   {
@@ -38,6 +39,7 @@ const BlogSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    comments: [CommentSchema],
   },
   { timestamps: true, strict: true }
 );

@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
 
 const PORT = 3030;
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use("/", authorsRoute);
 app.use("/blogPosts", blogpostRoute);
 app.use("/exercise", exerciseRoute);
+app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 
 mongoose.connect(
   "mongodb+srv://damianopavon:Cll1MsljWkIYAhRm@epicodedb.6ymfeeo.mongodb.net/",

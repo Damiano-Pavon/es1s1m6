@@ -36,8 +36,8 @@ Content-Type: application/json
 
 {
     "category":"Nessuna categoria",
-    "title":"Title 3",
-    "cover":"cover 3",
+    "title":"Title 1",
+    "cover":"cover 1",
     "readTime":{
         "value":130,
         "unit":"seconds"
@@ -46,14 +46,18 @@ Content-Type: application/json
         "name":"Name author",
         "avatar":"Nessuno"
     },
-    "content":"Empty"
+    "content":"Empty",
+    "comments":[]
+        
+    
+    
 }
 ####
-GET http://localhost:3030/blogPosts/65f5d1b17c6654d5cc4bc660
+GET http://localhost:3030/blogPosts/66042162bd7a7cc763451e0b
 
 ####
 
-PATCH http://localhost:3030/blogPosts/65f5d1b17c6654d5cc4bc660
+PATCH http://localhost:3030/blogPosts/66042162bd7a7cc763451e0b
 Content-Type: application/json
 
 {
@@ -87,3 +91,44 @@ GET http://localhost:3030/exercise/nogreen-noblue
 
 ####
 GET http://localhost:3030/exercise/company
+
+####
+PATCH http://localhost:3030/updateAuthor/65f5d91490b59c657b02e9c2
+Content-Type: application/json
+
+{
+     "avatar": "https://res.cloudinary.com/dp7v6spca/image/upload/v1711462324/PT043/rf2ovknsb0wasxgwk7n8.png"
+}
+
+####
+PATCH http://localhost:3030/blogPosts/66042162bd7a7cc763451e0b
+Content-Type: application/json
+
+{
+    "cover":"https://res.cloudinary.com/dp7v6spca/image/upload/v1711462324/PT043/rf2ovknsb0wasxgwk7n8.png"
+}
+
+####
+GET http://localhost:3030/blogPosts/66042162bd7a7cc763451e0b/comments
+
+####
+POST http://localhost:3030/blogPosts/66042162bd7a7cc763451e0b/comments
+Content-Type: application/json
+
+{
+    "text":"Beautyfull"
+    
+}
+
+####
+GET http://localhost:3030/blogPosts/66042162bd7a7cc763451e0b/comments/66042162bd7a7cc763451e0c
+
+####
+PATCH http://localhost:3030/blogPosts/66042162bd7a7cc763451e0b/comments/66042350435ff1c9a4da1265
+Content-Type: application/json
+
+{
+    "text": "very beautyfull"
+}
+####
+DELETE http://localhost:3030/blogPosts/66042162bd7a7cc763451e0b/comments/660421afbd7a7cc763451e10
