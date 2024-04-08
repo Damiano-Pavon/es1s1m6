@@ -4,6 +4,8 @@ const authorModel = require("../models/authors");
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const validateAuthorBody = require("../middlewares/validateAuthorBody");
+const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 cloudinary.config({
@@ -99,11 +101,14 @@ router.get("/getAuthors/:id", async (req, resp) => {
   }
 });
 
-router.post("/createAuthors", async (req, resp) => {
+router.post("/createAuthors", validateAuthorBody, async (req, resp) => {
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
   const newAuthor = new authorModel({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
+    password: hashedPassword,
     dateOfBirth: req.body.dateOfBirth,
     avatar: req.body.avatar,
   });

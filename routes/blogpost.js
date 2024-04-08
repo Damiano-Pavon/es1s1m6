@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const blogModel = require("../models/blogpost");
 const CommentSchema = require("../models/comments");
+const verified = require("../middlewares/verifyToken");
 
 router.get("/:id/comments", async (req, res) => {
   const { id } = req.params;
@@ -171,7 +172,7 @@ router.delete("/:id/comments/:commentId", async (req, res) => {
   }
 });
 
-router.get("/", async (req, resp) => {
+router.get("/", verified, async (req, resp) => {
   try {
     const blogposts = await blogModel.find();
     resp.status(200).send(blogposts);

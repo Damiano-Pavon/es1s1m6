@@ -6,11 +6,12 @@ POST http://localhost:3030/createAuthors
 Content-Type: application/json
 
 {
-    "firstName": "Pippo",
-    "lastName": "Paperino",
-    "email": "Pippo@gmail.com",
-    "dateOfBirth": "10 07 1990",
-    "avatar": "non lo so"
+    "firstName": "eugenio10",
+    "lastName": "pavon10",
+    "email": "euge@gmail.com",
+    "password":"ciaone132",
+    "dateOfBirth": "10 08 1990",
+    "avatar": "non so"
 }
 
 ####
@@ -36,8 +37,8 @@ Content-Type: application/json
 
 {
     "category":"Nessuna categoria",
-    "title":"Title 1",
-    "cover":"cover 1",
+    "title":"Title 2",
+    "cover":"cover 2",
     "readTime":{
         "value":130,
         "unit":"seconds"
@@ -132,3 +133,12 @@ Content-Type: application/json
 }
 ####
 DELETE http://localhost:3030/blogPosts/66042162bd7a7cc763451e0b/comments/660421afbd7a7cc763451e10
+
+####
+POST http://localhost:3030/login
+Content-Type: application/json
+
+{
+     "email": "euge@gmail.com",
+    "password":"ciaone132"
+}
