@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Col } from "react-bootstrap";
 import AxiosClient from "../client/client";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   const client = new AxiosClient();
   const [formData, setFormData] = useState({});
-  console.log(formData);
   const navigate = useNavigate();
 
   const onChangeInput = (e) => {
@@ -18,22 +16,38 @@ const Login = () => {
       [name]: value,
     });
   };
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    const response = await client.post("/login", formData);
-    if (response.statusCode === 200) {
-      localStorage.setItem("auth", JSON.stringify(response.token));
-      navigate("/home");
+    const response = await client.post("/createAuthors", formData);
+    if (response.statusCode === 201) {
+      
+      navigate("/success");
     }
-  };
-
-
-   const handleLoginWithGithub = () => {
-    window.location.href = `${process.env.REACT_APP_SERVER_BASE_URL}/auth/github`;
   };
 
   return (
     <Form onSubmit={onSubmit} className="m-5" style={{ width: 400 }}>
+      <Form.Group className="mb-3" controlId="formBasicFirstName">
+        <Form.Label>First Name</Form.Label>
+        <Form.Control
+          name="firstName"
+          type="text"
+          onChange={onChangeInput}
+          placeholder="Enter first name"
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicLastName">
+        <Form.Label>Last Name</Form.Label>
+        <Form.Control
+          name="lastName"
+          type="text"
+          onChange={onChangeInput}
+          placeholder="Enter last name"
+        />
+      </Form.Group>
+
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email</Form.Label>
         <Form.Control
@@ -53,34 +67,21 @@ const Login = () => {
           placeholder="Password"
         />
       </Form.Group>
-      
-      <Form.Group className="mb-3">
-        <Col>
-          <Button variant="primary" type="submit">
-            Login
-          </Button>
-        </Col>
+
+      <Form.Group className="mb-3" controlId="formBasicDateOfBirth">
+        <Form.Label>Date of Birth</Form.Label>
+        <Form.Control
+          name="dateOfBirth"
+          type="date"
+          onChange={onChangeInput}
+        />
       </Form.Group>
 
-      <Form.Group className="mb-3">
-        <Col>
-        if you are not registered 
-          <Link to="/register">
-            Register here
-          </Link>
-        </Col>
-      </Form.Group>
-
-      <Form.Group>
-        <Col>
-          <Button onClick={handleLoginWithGithub} variant="success" type="submit">
-            Login with Github
-          </Button>
-        </Col>
-      </Form.Group>
-      
+      <Button variant="primary" type="submit">
+        Register
+      </Button>
     </Form>
   );
 };
 
-export default Login;
+export default Register;

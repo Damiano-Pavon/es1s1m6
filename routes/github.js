@@ -4,6 +4,7 @@ const GithubStrategy = require("passport-github2").Strategy;
 const jwt = require("jsonwebtoken");
 const session = require("express-session");
 const passport = require("passport");
+const authorModel = require("../models/authors");
 require("dotenv").config();
 
 github.use(

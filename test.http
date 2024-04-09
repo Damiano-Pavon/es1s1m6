@@ -36,16 +36,16 @@ POST http://localhost:3030/blogPosts
 Content-Type: application/json
 
 {
-    "category":"Nessuna categoria",
-    "title":"Title 2",
-    "cover":"cover 2",
+    "category":"Nessuna categoria 3",
+    "title":"Title 3",
+    "cover":"cover 3",
     "readTime":{
         "value":130,
         "unit":"seconds"
     },
     "author":{
-        "name":"Name author",
-        "avatar":"Nessuno"
+        "name":"Name author3",
+        "avatar":"Nessuno3"
     },
     "content":"Empty",
     "comments":[]
@@ -58,11 +58,11 @@ GET http://localhost:3030/blogPosts/66042162bd7a7cc763451e0b
 
 ####
 
-PATCH http://localhost:3030/blogPosts/66042162bd7a7cc763451e0b
+PATCH http://localhost:3030/blogPosts/6614398f473f7ac374f55c27
 Content-Type: application/json
 
 {
-    "content":"Full"
+    "cover":"https://res.cloudinary.com/dp7v6spca/image/upload/v1711462324/PT043/rf2ovknsb0wasxgwk7n8.png"
 }
 
 ####

@@ -26,8 +26,8 @@ class AxiosClient {
     return response.data;
   }
 
-  async post(url, config) {
-    const response = await this.axiosInstance.post(url, config);
+  async post(url, data, config) {
+    const response = await this.axiosInstance.post(url, data, config);
     return response.data;
   }
 
